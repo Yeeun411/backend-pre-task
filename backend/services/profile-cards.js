@@ -41,10 +41,12 @@ exports.getProfileCardService = async (id) => {
     return { value, valueStructures };
 };
 
-exports.updateProfileCardService = async (profileCardId, updateDto) => {
-    return await updateProfile(profileCardId, updateDto);
+exports.updateProfileCardService = async (id, updateDto) => {
+    const success = await updateProfileCard(id, updateDto);
+    return success ? "성공입니다." : "실패입니다.";
 };
 
-exports.deleteProfileCardService = async (profileCardId) => {
-    return await deleteProfile(profileCardId);
+exports.deleteProfileCardService = async (id) => {
+    const success = await deleteProfileCard(id);
+    return success ? "성공적으로 삭제되었습니다." : "삭제에 실패했습니다.";
 };

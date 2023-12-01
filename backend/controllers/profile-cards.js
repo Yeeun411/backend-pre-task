@@ -32,7 +32,7 @@ exports.createProfileCardController = async (req, res) => {
 };
 
 
-exports.getProfileCard = async (req, res) => {
+exports.getProfileCardController = async (req, res) => {
   try {
       const profileCardId = parseInt(req.params.id);
       const profileCardData = await getProfileCardService(profileCardId);
@@ -51,14 +51,21 @@ exports.getProfileCard = async (req, res) => {
 
 exports.updateProfileCardController = async (req, res) => {
   try {
-    const profileCardId = parseInt(req.params.id);
-    const updateDto = new ProfileCardUpdateDto(req.body);
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+          return res.status(400).json({ errors: errors.array() });
+      }
 
-    const success = await updateProfileCardService(profileCardId, updateDto);
+      const updateDto = new ProfileCardUpdateDto(req.body);
+      const updatedProfileCard = await updateProfileCardService(req.params.id, updateDto);
 
-    res.json({ success });
+      if (!updatedProfileCard) {
+          return res.status(404).send("Profile card not found");
+      }
+
+      res.status(200).json(updatedProfileCard);
   } catch (error) {
-    res.status(500).send(error.message);
+      res.status(500).send(error.message);
   }
 };
 
@@ -66,9 +73,9 @@ exports.deleteProfileCardController = async (req, res) => {
     try {
       const profileCardId = parseInt(req.params.id);
   
-      const success = await deleteProfileCardService(profileCardId);
+      const deletedProfileCard = await deleteProfileCardService(profileCardId);
   
-      res.json({ success });
+      res.status(200).json(deletedProfileCard);
     } catch (error) {
       res.status(500).send(error.message);
     }
