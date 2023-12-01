@@ -1,16 +1,31 @@
-const FetchListDto = require('../dto/FetchListDto');
-const profileCardService = require('../services/profile-cards');
+const { 
 
-exports.fetchList = async (req, res) => {
-  const fetchListDto = new FetchListDto(req.query);
+  fetchListService, 
+  fetchColumnsService
+} = require('../services');
 
-  const { list, total } = await profileCardService.fetchList(fetchListDto);
-  
-  res.json({ list, total });
-};
 
 exports.fetchColumns = async (req, res) => {
-    const columns = await profileCardService.fetchColumns();
-    
-    res.json({ columns });
-  };
+    try {
+        const columns = await fetchColumnsService();
+        res.json({ columns });
+    } catch (error) {
+        res.status(500).send(error.message);
+    }
+};
+
+async function fetchListController(req, res) {
+  try {
+      const query = {
+          page: parseInt(req.query.page) || 1,
+          pageSize: parseInt(req.query.pageSize) || 10,
+          columns: req.query.columns || [],
+          sort: req.query.sort || null
+      };
+
+      const result = await fetchListService(query);
+      res.json(result);
+  } catch (error) {
+      res.status(500).send(error.message);
+  }
+}

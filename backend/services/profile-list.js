@@ -1,5 +1,16 @@
 const { fetchList } = require('../repositories');
 
-exports.fetchListService = async (fetchListDto) => {
-    return await fetchList(fetchListDto);
+exports.fetchColumnsService = async () => {
+    const fieldKeys = await fetchColumns();
+    const columns = [
+        { label: '이름', dataKey: 'name', type: 'string', parentDataKey: null },
+        ...fieldKeys.map(key => ({ label: key, dataKey: key, type: 'string', parentDataKey: null }))
+    ];
+
+    return columns;
 };
+
+async function fetchListService(query) {
+    const { page, pageSize, columns, sort } = query;
+    return await fetchList(page, pageSize, columns, sort);
+}

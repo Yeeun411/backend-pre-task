@@ -12,18 +12,12 @@ router.get('/', asyncWrapper(async (req, res) => {
   });
 }));
 
-const profileCardController = require('../../controllers/profile_card');
+router.post('/create-profile-card', asyncWrapper(profileCardController.createProfileCard));
 
-// 신규 연락처 생성
-router.post('/create-profile-card', profileCardController.createProfileCard);
+router.get('/:id', asyncWrapper(profileCardController.getProfileCard));
 
-// 연락처 조회
-router.get('/:id', profileCardController.getProfileCard);
+router.put('/:id', asyncWrapper(profileCardController.updateProfileCard));
 
-// 연락처 정보 수정
-router.put('/:id', profileCardController.updateProfileCard);
-
-// 연락처 삭제
-router.delete('/:id', profileCardController.deleteProfileCard);
+router.delete('/:id', asyncWrapper(profileCardController.deleteProfileCard));
 
 module.exports = router;

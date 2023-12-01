@@ -3,15 +3,12 @@ const {
     ProfileCardCreateDto,
     ProfileCardResponseDto,
     ProfileCardUpdateDto,
-    FetchListDto
 } = require('../dtos');
 const { 
     createProfileCardService, 
     getProfileCardService, 
     updateProfileCardService, 
     deleteProfileCardService, 
-    fetchListService, 
-    fetchColumnsService
 } = require('../services');
 
 exports.createProfileCardController = async (req, res) => {
