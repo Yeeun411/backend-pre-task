@@ -10,6 +10,20 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
     // define columns...
+    created_at: {
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW,
+      allowNull: false
+    },
+    updated_at: {
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW,
+      allowNull: false
+    },
+    deleted_at: {
+      type: DataTypes.DATE,
+      allowNull: true
+    }
   },{
     tableName: "profile_card",
     paranoid: true,
@@ -20,7 +34,21 @@ module.exports = (sequelize, DataTypes) => {
 
   model.associate = (models) => {
     // define associate if necessary...
+    model.hasMany(models.career_field, { 
+      as: 'career_fields',
+      foreignKey: 'profile_id',
+      onDelete: 'CASCADE',
+      hooks: true
+    });
+  
+    model.hasMany(models.profile_field, { 
+      as: 'profile_fields',
+      foreignKey: 'profile_id',
+      onDelete: 'CASCADE',
+      hooks: true
+    });
   };
+  
 
   return model;
 };
