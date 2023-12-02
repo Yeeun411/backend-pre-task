@@ -57,7 +57,7 @@ const ProfileCardList = () => {
     // TODO: Change your api
     const response = await request({
       method: 'GET',
-      url: '/api/profile-card',
+      url: '/api/profile_card_list/',
       params: {
         current: targetPage || paginationInfo.current,
         columns: columnDefs.map(({ field }) => field),
@@ -80,7 +80,7 @@ const ProfileCardList = () => {
     // TODO: Change your api
     const response = await request({
       method: 'GET',
-      url: '/api/??',
+      url: '/api/profile_card_list/columns/',
     });
     if (!response || !response.columns) return;
 
@@ -110,7 +110,7 @@ const ProfileCardList = () => {
     // TODO: Change your api
     const response = await request({
       method: 'POST',
-      url: '/api/??',
+      url: '/api/profile_card/createProfile/',
       data: { createTargetName }
     });
     if (!response || !response.created) return;

@@ -24,7 +24,7 @@ const ProfileCardDetail = (props) => {
     // TODO: Change your api
     const response = await request({
       method: 'GET',
-      url: '/api/??',
+      url: '/api/profile_card/getProfile/:id',
     });
     if (!response || !response.profileCardDetail) return;
 
@@ -79,7 +79,7 @@ const ProfileCardDetail = (props) => {
     // TODO: Change your api
     const response = await request({
       method: 'POST',
-      url: '/api/',
+      url: '/api/profile_card/updateProfile/:id',
     });
     if (!response) return;
 

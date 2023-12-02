@@ -1,6 +1,7 @@
 const { validationResult } = require("express-validator");
 const { 
-    ProfileCardCreateDto,  ProfileCardResponseDto,
+    ProfileCardCreateDto,  
+    ProfileCardResponseDto,
     ProfileCardUpdateDto,
 } = require('../dtos');
 const { 
@@ -46,7 +47,7 @@ exports.updateProfileCardController = async (req, res) => {
   try {
       const profileId = req.params.id;
       const { parentDataKey, itemIndex, newValue } = req.body;
-      const updateDto = { parentDataKey, itemIndex, newValue };
+      const updateDto = new ProfileCardUpdateDto({parentDataKey, itemIndex, newValue });
 
       const result = await updateProfileCardService(profileId, updateDto);
 
