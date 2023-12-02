@@ -28,7 +28,6 @@ exports.createProfileCardController = async (req, res) => {
   }
 };
 
-
 exports.getProfileCardController = async (req, res) => {
   try {
       const profileCardId = parseInt(req.params.id);
@@ -43,8 +42,6 @@ exports.getProfileCardController = async (req, res) => {
       res.status(500).send(error.message);
   }
 };
-
-
 
 exports.updateProfileCardController = async (req, res) => {
   try {

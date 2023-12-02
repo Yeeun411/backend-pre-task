@@ -1,17 +1,15 @@
 const { 
-    createProfile, 
-    findProfileById, 
-    findProfileFieldsById, 
-    findCareerFieldsById, 
-    updateProfile, 
-    deleteProfile 
+    createProfileCard, 
+    getProfileCard,
+    updateProfileCard, 
+    deleteProfileCard 
 } = require("../repositories");
 
 
 const { extractValueStructuresFromTables } = require('../utils/valueStructureExtractor');
 
 exports.createProfileCardService = async (createDto) => {
-    return await createProfile(createDto);
+    return await createProfileCard(createDto);
 };
 
 exports.getProfileCardService = async (id) => {

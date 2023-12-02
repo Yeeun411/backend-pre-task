@@ -2,7 +2,7 @@ const ProfileCard = require('../models/profile_card');
 const ProfileField = require('../models/profile_field');
 const CareerField = require('../models/career_field');
 
-exports.createProfile = async (createDto) => {
+exports.createProfileCard = async (createDto) => {
   return await profile_card.create({
     name: createDto.name
   });
