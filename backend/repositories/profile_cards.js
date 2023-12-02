@@ -9,6 +9,11 @@ exports.createProfileCard = async (createDto) => {
   });
 };
 
+exports.createProfileCardField = async (id, field_key, field_value) => {
+  const [updateCount] = await profile_field.create({ field_key: field_key, field_value: field_value}, { where: { profile_id: id} });
+  return updateCount > 0;
+}
+
 exports.getProfileCard = async (id) => {
   const profileCard = await ProfileCard.findByPk(id);
   const profileFields = await ProfileField.findAll({
@@ -20,10 +25,6 @@ exports.getProfileCard = async (id) => {
   return { profileCard, profileFields, careerFields };
 };
 
-exports.createProfileCardField = async (id, field_key, field_value) => {
-  const [updateCount] = await profile_field.create({ field_key: field_key, field_value: field_value}, { where: { profile_id: id, field_key: fieldKey } });
-  return updateCount > 0;
-}
 
 exports.updateProfileCard = async (id, updateData) => {
   try {

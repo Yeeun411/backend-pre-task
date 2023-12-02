@@ -13,12 +13,12 @@ router.get('/', asyncWrapper(async (req, res) => {
   });
 }));
 
-router.post('/', asyncWrapper(profileCardController.createProfileCard));
+router.post('createProfile/', asyncWrapper(profileCardController.createProfileCard));
 
-router.get('/:id', asyncWrapper(profileCardController.getProfileCard));
+router.get('getProfile/:id', asyncWrapper(profileCardController.getProfileCard));
 
-router.put('/:id', asyncWrapper(profileCardController.updateProfileCard));
+router.post('updateProfile/:id', asyncWrapper(profileCardController.updateProfileCard));
 
-router.delete('/:id', asyncWrapper(profileCardController.deleteProfileCard));
+router.post('deleteProfile/:id', asyncWrapper(profileCardController.deleteProfileCard));
 
 module.exports = router;

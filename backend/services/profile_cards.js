@@ -9,15 +9,15 @@ const {
 const { extractValueStructuresFromTables } = require('../utils/valueStructureExtractor');
 
 exports.createProfileCardService = async (createDto) => {
-    const success = await createProfileCard(createDto);
-    if (!success) return null;
-    else {
-        await createProfileCardFieldService(createProfileResult.id, "닉네임", null);
-        await createProfileCardFielService(createProfileResult.id, "전화번호", null);
-        await createProfileCardFieldService(createProfileResult.id, "이메일", null);
-        await createProfileCardFieldService(createProfileResult.id, "생년월일", null);
-        await createProfileCardFieldService(createProfileResult.id, "성별", null);
-    }
+    const createProfileResult = await createProfileCard(createDto);
+
+    await createProfileCardFieldService(createProfileResult.id, "닉네임", null);
+    await createProfileCardFielService(createProfileResult.id, "전화번호", null);
+    await createProfileCardFieldService(createProfileResult.id, "이메일", null);
+    await createProfileCardFieldService(createProfileResult.id, "생년월일", null);
+    await createProfileCardFieldService(createProfileResult.id, "성별", null);
+    
+    return createProfileResult;
 };
 
 exports.createProfileCardFieldService = async (id, field_key, field_value) => {
