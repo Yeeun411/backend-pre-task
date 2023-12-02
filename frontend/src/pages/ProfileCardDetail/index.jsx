@@ -36,7 +36,7 @@ const ProfileCardDetail = (props) => {
   }, [profileCardId]);
 
   const deleteProfileCard = useCallback(async () => {
-
+    // TODO: Change your api
     const response = await request({
       method: 'POST',
       url: `/api/deleteProfile/${profileCardId}`,

@@ -1,30 +1,22 @@
+const { validationResult } = require('express-validator');
 const { 
-  fetchListService, 
-  fetchColumnsService
+    fetchProfileListService
 } = require('../services');
+const { 
+    FetchListDto
+} = require('../dtos');
 
-
-exports.fetchColumnsController = async (req, res) => {
+exports.fetchProfileListController = async (req, res) => {
     try {
-        const columns = await fetchColumnsService();
-        res.json({ columns });
+        const fetchListDto = new FetchListDto(req.query);
+        const result = await fetchProfileListService(fetchListDto);
+
+        if (!result) {
+            return res.status(404).send("Profile cards not found");
+        }
+
+        res.json(result);
     } catch (error) {
         res.status(500).send(error.message);
     }
 };
-
-exports.fetchListController = async (req, res) => {
-  try {
-      const query = {
-          page: parseInt(req.query.page) || 1,
-          pageSize: parseInt(req.query.pageSize) || 10,
-          columns: req.query.columns || [],
-          sort: req.query.sort || null
-      };
-
-      const result = await fetchListService(query);
-      res.json(result);
-  } catch (error) {
-      res.status(500).send(error.message);
-  }
-}

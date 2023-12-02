@@ -10,7 +10,7 @@ const {
 const { extractValueStructuresFromTables } = require('../utils/valueStructureExtractor');
 
 exports.createProfileCardService = async (createDto) => {
-    const createProfileResult = await createProfileCard(createDto);
+    const createProfileResult = await createProfileCard(createDto)
 
     await createProfileCardFieldService(createProfileResult.id, "닉네임", null);
     await createProfileCardFielService(createProfileResult.id, "전화번호", null);

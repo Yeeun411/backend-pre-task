@@ -30,6 +30,7 @@ exports.createProfileCardController = async (req, res) => {
 
 exports.getProfileCardController = async (req, res) => {
   try {
+    
       const profileCardId = parseInt(req.params.id);
       const profileCardData = await getProfileCardService(profileCardId);
 
@@ -45,6 +46,7 @@ exports.getProfileCardController = async (req, res) => {
 
 exports.updateProfileCardController = async (req, res) => {
   try {
+    
       const profileId = req.params.id;
       const { parentDataKey, itemIndex, newValue } = req.body;
       const updateDto = new ProfileCardUpdateDto({parentDataKey, itemIndex, newValue });
