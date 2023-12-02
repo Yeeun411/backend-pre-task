@@ -6,12 +6,11 @@ const {
     deleteProfileCard 
 } = require("../repositories");
 
-
 const { extractValueStructuresFromTables } = require('../utils/valueStructureExtractor');
 
 exports.createProfileCardService = async (createDto) => {
-    const createProfileResult = await createProfileCard(createDto);
-    if (!createProfileResult) return null;
+    const success = await createProfileCard(createDto);
+    if (!success) return null;
     else {
         await createProfileCardFieldService(createProfileResult.id, "닉네임", null);
         await createProfileCardFielService(createProfileResult.id, "전화번호", null);

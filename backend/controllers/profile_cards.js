@@ -4,10 +4,10 @@ const {
     ProfileCardUpdateDto,
 } = require('../dtos');
 const { 
-    createProfileCardService, 
-    getProfileCardService, 
-    updateProfileCardService, 
-    deleteProfileCardService, 
+    createProfileCardService,
+    getProfileCardService,
+    updateProfileCardService,
+    deleteProfileCardService,
 } = require('../services');
 
 exports.createProfileCardController = async (req, res) => {

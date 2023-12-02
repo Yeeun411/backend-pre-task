@@ -1,5 +1,5 @@
-const profileCardsRepository = require('./profile-cards');
-const profileListsRepository = require('./profile-list');
+const profileCardsRepository = require('./profile_cards');
+const profileListsRepository = require('./profile_list');
 module.exports = {
     ...profileCardsRepository,
     ...profileListsRepository

@@ -5,11 +5,11 @@ const {
     ProfileFieldDto,
     CareerFieldDto,
     ValueStructureDto
-} = require('./profile-cards');
+} = require('./profile_cards');
 
 const {
     FetchListDto
-} = require('./profile-list');
+} = require('./profile_list');
 
 module.exports = {
     CreateProfileCardDto,

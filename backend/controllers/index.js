@@ -1,5 +1,5 @@
-const profileCardsController = require('./profile-cards');
-const profileListController = require('./profile-list');
+const profileCardsController = require('./profile_cards');
+const profileListController = require('./profile_list');
 
 module.exports = {
     ...profileCardsController,

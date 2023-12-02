@@ -3,6 +3,6 @@ const router = express.Router();
 
 const profileCardRoutes = require('./profileCard');
 
-router.use('/profile-card', profileCardRoutes);
+router.use('/profile_card', profileCardRoutes);
 
 module.exports = router;
