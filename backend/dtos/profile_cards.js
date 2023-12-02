@@ -11,11 +11,14 @@ class ProfileCardResponseDto {
     }
   }
   
-class ProfileCardUpdateDto {
-    constructor(data) {
-        Object.assign(this, data);
+  class ProfileCardUpdateDto {
+    constructor({ parentDataKey, itemIndex, newValue }) {
+        this.parentDataKey = parentDataKey;
+        this.itemIndex = itemIndex;
+        this.newValue = newValue;
     }
 }
+
 
 class ProfileFieldDto {
     constructor(field) {

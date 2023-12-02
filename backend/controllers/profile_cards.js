@@ -44,19 +44,17 @@ exports.getProfileCardController = async (req, res) => {
 
 exports.updateProfileCardController = async (req, res) => {
   try {
-      const errors = validationResult(req);
-      if (!errors.isEmpty()) {
-          return res.status(400).json({ errors: errors.array() });
+      const profileId = req.params.id;
+      const { parentDataKey, itemIndex, newValue } = req.body;
+      const updateDto = { parentDataKey, itemIndex, newValue };
+
+      const result = await updateProfileCardService(profileId, updateDto);
+
+      if (!result) {
+          return res.status(404).send("Unable to update profile card");
       }
 
-      const updateDto = new ProfileCardUpdateDto(req.body);
-      const updatedProfileCard = await updateProfileCardService(req.params.id, updateDto);
-
-      if (!updatedProfileCard) {
-          return res.status(404).send("Profile card not found");
-      }
-
-      res.status(200).json(updatedProfileCard);
+      res.status(200).json({ message: "Profile card updated successfully" });
   } catch (error) {
       res.status(500).send(error.message);
   }

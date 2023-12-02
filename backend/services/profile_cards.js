@@ -2,7 +2,8 @@ const {
     createProfileCard, 
     getProfileCard,
     createProfileCardField,
-    updateProfileCard, 
+    updateProfileField, 
+    updateCareerField, 
     deleteProfileCard 
 } = require("../repositories");
 
@@ -53,8 +54,15 @@ exports.getProfileCardService = async (id) => {
 };
 
 exports.updateProfileCardService = async (id, updateDto) => {
-    const success = await updateProfileCard(id, updateDto);
-    return success ? "성공입니다." : "실패입니다.";
+    const { parentDataKey, itemIndex, newValue } = updateDto;
+
+    if (parentDataKey === 'profile_field') {
+        return await updateProfileField(id, newValue);
+    } else if (parentDataKey === 'career_field') {
+        return await updateCareerField(id, itemIndex, newValue);
+    } else {
+        return false;
+    }
 };
 
 exports.deleteProfileCardService = async (id) => {

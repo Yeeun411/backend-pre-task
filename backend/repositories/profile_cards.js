@@ -9,8 +9,8 @@ exports.createProfileCard = async (createDto) => {
   });
 };
 
-exports.createProfileCardField = async (id, field_key, field_value) => {
-  const [updateCount] = await profile_field.create({ field_key: field_key, field_value: field_value}, { where: { profile_id: id} });
+exports.createProfileCardField = async (id, fieldKey, fieldValue) => {
+  const [updateCount] = await profile_field.create({ field_key: fieldKey, field_value: fieldValue}, { where: { profile_id: id} });
   return updateCount > 0;
 }
 
@@ -26,25 +26,40 @@ exports.getProfileCard = async (id) => {
 };
 
 
-exports.updateProfileCard = async (id, updateData) => {
+exports.updateProfileField = async (profileId, newValue) => {
   try {
-    const updateCount = await ProfileCard.update(updateData, { where: { id } });
-    let profileFieldUpdateSuccess = true;
-
-    if (updateData.profileFields) {
-        for (const field of updateData.profileFields) {
-            const [updateFieldCount] = await ProfileField.update({ field_value: field.value }, { where: { profile_id: id, field_key: field.key } });
-            if (updateFieldCount === 0) {
-                profileFieldUpdateSuccess = false;
-            }
-        }
-    }
-
-    return (updateCount[0] > 0 || profileFieldUpdateSuccess);
+      for (const key in newValue) {
+          await ProfileField.upsert({
+              profile_id: profileId,
+              field_key: key,
+              field_value: newValue[key]
+          });
+      }
+      return true;
   } catch (error) {
-    return false;
+      console.error(error);
+      return false;
   }
 };
+
+exports.updateCareerField = async (profileId, itemIndex, newValue) => {
+  try {
+      await CareerField.update(newValue, {
+          where: {
+              profile_id: profileId,
+              item_index: itemIndex
+          }
+      });
+      return true;
+  } catch (error) {
+      console.error(error);
+      return false;
+  }
+};
+
+
+
+
 
 exports.deleteProfileCard = async (id) => {
   try {
