@@ -1,5 +1,5 @@
 const { getProfileList } = require('../repositories');
-const { createValueStructures } = require('../utils');
+const { createValueStructures } = require('../utils/value_structure');
 
 exports.fetchProfileListService = async (fetchListDto) => {
     const { page, pageSize, columns, sort } = fetchListDto;

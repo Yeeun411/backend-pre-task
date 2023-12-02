@@ -32,7 +32,7 @@ CREATE TABLE profile_field (
     item_index int,
     field_key varchar(100),
     field_value text,
-    field_type enum('text', 'phone', 'email', 'date'),
+    field_type text default 'text',
     updated_at timestamp default current_timestamp not null on update current_timestamp,
     primary key (profile_id, field_key),
     foreign key (profile_id) references profile_card(id)

@@ -7,7 +7,7 @@ const {
     deleteProfileCard 
 } = require("../repositories");
 
-const { createValueStructures } = require("../utils");
+const { createValueStructures } = require("../utils/value_structure");
 
 exports.createProfileCardService = async (createDto) => {
     const createProfileResult = await createProfileCard(createDto)

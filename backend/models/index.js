@@ -7,6 +7,9 @@ const sequelize = new Sequelize('jober_pre_task', 'root', 'root', {
   dialect: 'mysql'
 });
 
+const db = {};
+
+
 fs.readdirSync(__dirname)
   .filter((fileName) => {
     const [modelName, extension] = fileName.split('.');
