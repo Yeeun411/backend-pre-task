@@ -1,7 +1,6 @@
 const { validationResult } = require("express-validator");
 const { 
-    ProfileCardCreateDto,
-    ProfileCardResponseDto,
+    ProfileCardCreateDto,  ProfileCardResponseDto,
     ProfileCardUpdateDto,
 } = require('../dtos');
 const { 

@@ -13,7 +13,7 @@ router.get('/', asyncWrapper(async (req, res) => {
   });
 }));
 
-router.post('/create-profile-card', asyncWrapper(profileCardController.createProfileCard));
+router.post('/', asyncWrapper(profileCardController.createProfileCard));
 
 router.get('/:id', asyncWrapper(profileCardController.getProfileCard));
 

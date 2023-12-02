@@ -1,6 +1,7 @@
 const { 
     createProfileCard, 
     getProfileCard,
+    createProfileCardField,
     updateProfileCard, 
     deleteProfileCard 
 } = require("../repositories");
@@ -9,7 +10,20 @@ const {
 const { extractValueStructuresFromTables } = require('../utils/valueStructureExtractor');
 
 exports.createProfileCardService = async (createDto) => {
-    return await createProfileCard(createDto);
+    const createProfileResult = await createProfileCard(createDto);
+    if (!createProfileResult) return null;
+    else {
+        await createProfileCardFieldService(createProfileResult.id, "닉네임", null);
+        await createProfileCardFielService(createProfileResult.id, "전화번호", null);
+        await createProfileCardFieldService(createProfileResult.id, "이메일", null);
+        await createProfileCardFieldService(createProfileResult.id, "생년월일", null);
+        await createProfileCardFieldService(createProfileResult.id, "성별", null);
+    }
+};
+
+exports.createProfileCardFieldService = async (id, field_key, field_value) => {
+    const success = await createProfileCardField(id, field_key, field_value);
+    return success ? "성공입니다." : "실패입니다.";
 };
 
 exports.getProfileCardService = async (id) => {

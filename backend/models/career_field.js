@@ -14,14 +14,15 @@ module.exports = (sequelize, DataTypes) => {
       },
       role: {
         type: DataTypes.STRING(100),
-        allowNull: false,
+        allowNull: true,
       },
       start_date: {
         type: DataTypes.DATEONLY,
-        allowNull: false,
+        allowNull: true,
       },
       end_date: {
         type: DataTypes.DATEONLY,
+        allowNull: true,
       },
       updated_at: {
         type: DataTypes.TIMESTAMP,

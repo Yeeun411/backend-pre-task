@@ -1,6 +1,7 @@
 const ProfileCard = require('../models/profile_card');
 const ProfileField = require('../models/profile_field');
 const CareerField = require('../models/career_field');
+const profile_field = require('../models/profile_field');
 
 exports.createProfileCard = async (createDto) => {
   return await profile_card.create({
@@ -18,6 +19,11 @@ exports.getProfileCard = async (id) => {
 
   return { profileCard, profileFields, careerFields };
 };
+
+exports.createProfileCardField = async (id, field_key, field_value) => {
+  const [updateCount] = await profile_field.create({ field_key: field_key, field_value: field_value}, { where: { profile_id: id, field_key: fieldKey } });
+  return updateCount > 0;
+}
 
 exports.updateProfileCard = async (id, updateData) => {
   try {
