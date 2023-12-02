@@ -30,17 +30,16 @@ exports.createProfileCardController = async (req, res) => {
 
 exports.getProfileCardController = async (req, res) => {
   try {
-    
-      const profileCardId = parseInt(req.params.id);
-      const profileCardData = await getProfileCardService(profileCardId);
+    const profileCardId = parseInt(req.params.id);
+    const profileCardData = await getProfileCardService(profileCardId);
 
-      if (!profileCardData) {
-          return res.status(404).send("Profile card not found");
-      }
+    if (!profileCardData) {
+      return res.status(404).send("Profile card not found");
+    }
 
-      res.json(new ProfileCardResponseDto(profileCardData.value, profileCardData.valueStructures));
+    res.json(profileCardData);
   } catch (error) {
-      res.status(500).send(error.message);
+    res.status(500).send(error.message);
   }
 };
 

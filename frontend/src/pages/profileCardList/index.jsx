@@ -76,7 +76,36 @@ const ProfileCardList = () => {
     setOrderInfo(sort);
   }, listFetchDependencies);
 
-  ㅍ
+  
+  const fetchAvailableColumns = useCallback(async () => {
+    // TODO: Change your api
+    const response = await request({
+      method: 'GET',
+      url: '/api/profile_card_list//columns/',
+    });
+    if (!response || !response.columns) return;
+
+    setColumnDefs([
+      {
+        headerName: '이름',
+        field: 'name',
+        cellClass: 'default-cell',
+        comparator: () => 0,
+        cellRenderer: DetailPageLink,
+      },
+      ...response.columns.map(({ label, dataKey, parentDataKey }) => ({
+        headerName: label,
+        field: parentDataKey ? `${parentDataKey}_${dataKey}_0` : dataKey,
+        cellClass: 'default-cell',
+        comparator: () => 0,
+      })),
+    ]);
+  }, []);
+
+  useEffect(() => {
+    fetchProfileList();
+    fetchAvailableColumns();
+  }, []);
 
   const onCreateProfileCard = useCallback(async (createTargetName) => {
     // TODO: Change your api

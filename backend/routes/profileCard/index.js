@@ -15,7 +15,7 @@ router.get('/', asyncWrapper(async (req, res) => {
 
 router.post('createProfile/', asyncWrapper(profileCardController.createProfileCard));
 
-router.get('getProfile/:id', asyncWrapper(profileCardController.getProfileCard));
+router.get('getProfile/', asyncWrapper(profileCardController.getProfileCard));
 
 router.post('updateProfile/:id', asyncWrapper(profileCardController.updateProfileCard));
 

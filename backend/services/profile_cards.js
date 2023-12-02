@@ -7,7 +7,7 @@ const {
     deleteProfileCard 
 } = require("../repositories");
 
-const { extractValueStructuresFromTables } = require('../utils/valueStructureExtractor');
+const { createValueStructures } = require("../utils");
 
 exports.createProfileCardService = async (createDto) => {
     const createProfileResult = await createProfileCard(createDto)
@@ -46,10 +46,9 @@ exports.getProfileCardService = async (id) => {
         이름: profileCard.name,
         ...profileFieldsObject,
         경력사항: careerFieldsArray
-    };
+        };
 
-    const valueStructures = extractValueStructuresFromTables(profileFields, careerFields);
-
+    const valueStructures = createValueStructures(profileFields, careerFields);
     return { value, valueStructures };
 };
 

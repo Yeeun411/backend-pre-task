@@ -24,7 +24,10 @@ const ProfileCardDetail = (props) => {
     // TODO: Change your api
     const response = await request({
       method: 'GET',
-      url: '/api/profile_card/getProfile/:id',
+      url: `/api/profile_card/getProfile/`,
+      params: {
+        profileCardId: fetchTargetId,
+      },
     });
     if (!response || !response.profileCardDetail) return;
 
@@ -39,7 +42,7 @@ const ProfileCardDetail = (props) => {
     // TODO: Change your api
     const response = await request({
       method: 'POST',
-      url: `/api/deleteProfile/${profileCardId}`,
+      url: `/api/profile_card/deleteProfile/${profileCardId}`,
     });
     if (!response) return;
 
@@ -79,7 +82,12 @@ const ProfileCardDetail = (props) => {
     // TODO: Change your api
     const response = await request({
       method: 'POST',
-      url: '/api/profile_card/updateProfile/:id',
+      url: `/api/profile_card/updateProfile/${profileCardId}`,
+      data: {
+        newValue,
+        parentDatKey,
+        itemIndex,
+      },
     });
     if (!response) return;
 
