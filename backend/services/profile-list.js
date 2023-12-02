@@ -10,7 +10,7 @@ exports.fetchColumnsService = async () => {
     return columns;
 };
 
-async function fetchListService(query) {
+exports.fetchListService = async (query) => {
     const { page, pageSize, columns, sort } = query;
     return await fetchList(page, pageSize, columns, sort);
 }

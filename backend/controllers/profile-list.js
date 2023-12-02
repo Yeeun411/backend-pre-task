@@ -1,11 +1,10 @@
 const { 
-
   fetchListService, 
   fetchColumnsService
 } = require('../services');
 
 
-exports.fetchColumns = async (req, res) => {
+exports.fetchColumnsController = async (req, res) => {
     try {
         const columns = await fetchColumnsService();
         res.json({ columns });
@@ -14,7 +13,7 @@ exports.fetchColumns = async (req, res) => {
     }
 };
 
-async function fetchListController(req, res) {
+exports.fetchListController = async (req, res) => {
   try {
       const query = {
           page: parseInt(req.query.page) || 1,

@@ -1,11 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const asyncWrapper = require('../../context/asyncWrapper');
-const profileListController = require('../../controllers/profileList');
-const profileCardController = require('../../controllers/profileCard');
+const { fetchListController, fetchColumnsController } = require('../../controllers');
 
-router.get('/list', asyncWrapper(profileListController.fetchList));
+router.get('/list', asyncWrapper(fetchListController));
 
-router.get('/columns', asyncWrapper(profileCardController.fetchColumns));
+router.get('/columns', asyncWrapper(fetchColumnsController));
 
 module.exports = router;

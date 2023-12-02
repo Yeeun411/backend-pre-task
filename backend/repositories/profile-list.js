@@ -13,7 +13,7 @@ exports.fetchColumns = async () => {
     return fields.map(field => field.field_key);
 };
 
-async function fetchList(page, pageSize, columns, sortOrder) {
+exports.fetchList = async(page, pageSize, columns, sortOrder) => {
     const offset = (page - 1) * pageSize;
     const order = sortOrder ? [[sortOrder.column, sortOrder.direction]] : [];
 
