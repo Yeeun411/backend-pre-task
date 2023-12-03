@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-  const model = sequelize.define("profile_card", {
+  const profile_card = sequelize.define("profile_card", {
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
@@ -9,7 +9,6 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING(100),
       allowNull: false,
     },
-    // define columns...
     created_at: {
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW,
@@ -32,16 +31,16 @@ module.exports = (sequelize, DataTypes) => {
     deletedAt: "deleted_at"
   });
 
-  model.associate = (models) => {
+  profile_card.associate = (profile_cards) => {
     // define associate if necessary...
-    model.hasMany(models.career_field, { 
+    profile_card.hasMany(profile_cards.career_field, { 
       as: 'career_fields',
       foreignKey: 'profile_id',
       onDelete: 'CASCADE',
       hooks: true
     });
   
-    model.hasMany(models.profile_field, { 
+    profile_card.hasMany(profile_cards.profile_field, { 
       as: 'profile_fields',
       foreignKey: 'profile_id',
       onDelete: 'CASCADE',
@@ -50,5 +49,5 @@ module.exports = (sequelize, DataTypes) => {
   };
   
 
-  return model;
+  return profile_card;
 };

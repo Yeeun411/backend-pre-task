@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-  const model = sequelize.define('profile_field', {
+  const profile_field = sequelize.define('profile_field', {
     profile_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -37,11 +37,11 @@ module.exports = (sequelize, DataTypes) => {
     updatedAt: 'updated_at'
   });
 
-  model.associate = (models) => {
-    model.belongsTo(models.profile_card, { foreignKey: 'profile_id' });
+  profile_field.associate = (profile_fields) => {
+    profile_field.belongsTo(profile_fields.profile_card, { foreignKey: 'profile_id' });
   };
 
-  return model;
+  return profile_field;
 };
 
   

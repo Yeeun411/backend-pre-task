@@ -5,18 +5,21 @@ const {
     updateProfileField, 
     updateCareerField, 
     deleteProfileCard 
-} = require("../repositories");
+} = require("../repositories/profile_cards");
 
 const { createValueStructures } = require("../utils/value_structure");
 
 exports.createProfileCardService = async (createDto) => {
     const createProfileResult = await createProfileCard(createDto)
+    const profileId = createProfileResult.id;
+    console.log("프로필 아이디는");
+    console.log(profileId);
 
-    await createProfileCardFieldService(createProfileResult.id, "닉네임", null);
-    await createProfileCardFielService(createProfileResult.id, "전화번호", null);
-    await createProfileCardFieldService(createProfileResult.id, "이메일", null);
-    await createProfileCardFieldService(createProfileResult.id, "생년월일", null);
-    await createProfileCardFieldService(createProfileResult.id, "성별", null);
+    await createProfileCardField(profileId, "닉네임", null);
+    await createProfileCardField(profileId, "전화번호", null);
+    await createProfileCardField(profileId, "이메일", null);
+    await createProfileCardField(profileId, "생년월일", null);
+    await createProfileCardField(profileId, "성별", null);
     
     return createProfileResult;
 };

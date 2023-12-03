@@ -1,8 +1,8 @@
-class CreateProfileCardDto {
-    constructor(name) {
-      this.name = name;
-    }
+class ProfileCardCreateDto {
+  constructor(name) {
+    this.name = name;
   }
+}
 
 class ProfileCardResponseDto {
     constructor(value, valueStructures) {
@@ -44,3 +44,13 @@ class ValueStructureDto {
         this.parentDataKey = parentDataKey;
     }
 }
+
+
+module.exports = {
+    ProfileCardCreateDto,
+    ProfileCardResponseDto,
+    ProfileCardUpdateDto,
+    ProfileFieldDto,
+    CareerFieldDto,
+    ValueStructureDto
+  };

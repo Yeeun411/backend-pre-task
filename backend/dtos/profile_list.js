@@ -7,3 +7,6 @@ class FetchListDto {
     }
   }
   
+module.exports = {
+    FetchListDto
+  };

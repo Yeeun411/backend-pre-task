@@ -7,7 +7,7 @@ const {createProfileCardController,
   getProfileCardController,
   updateProfileCardController,
   deleteProfileCardController
-} = require('../../controllers');
+} = require('../../controllers/profile_cards');
 
 router.get('/', asyncWrapper(async (req, res) => {
   const list = await ProfileCard.findAll();

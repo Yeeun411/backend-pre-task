@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const asyncWrapper = require('../../context/asyncWrapper');
-const { fetchProfileListController,fetchAvailableColumnsController } = require('../../controllers');
+const { fetchProfileListController,fetchAvailableColumnsController } = require('../../controllers/profile_list');
 
 router.get('/', asyncWrapper(fetchProfileListController ));
 

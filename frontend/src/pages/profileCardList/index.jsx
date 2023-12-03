@@ -112,7 +112,7 @@ const ProfileCardList = () => {
     const response = await request({
       method: 'POST',
       url: `/api/profile_card/createProfile/`,
-      data: { createTargetName }
+      data: { name: createTargetName } 
     });
     if (!response || !response.created) return;
 

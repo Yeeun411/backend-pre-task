@@ -9,7 +9,6 @@ const sequelize = new Sequelize('jober_pre_task', 'root', 'root', {
 
 const db = {};
 
-
 fs.readdirSync(__dirname)
   .filter((fileName) => {
     const [modelName, extension] = fileName.split('.');
@@ -17,7 +16,7 @@ fs.readdirSync(__dirname)
   })
   .forEach(function (file) {
     const model = sequelize['import'](path.join(__dirname, file));
-    console.log('[model]', model);
+    console.log('[model]', model.name);
     db[model.name] = model;
   });
 
@@ -26,6 +25,14 @@ Object.keys(db).forEach(function (modelName) {
     db[modelName].associate(db);
   }
 });
+
+sequelize.sync({ force: false })
+  .then(() => {
+    console.log("Tables created/updated successfully!");
+  })
+  .catch((error) => {
+    console.error("Error creating/updating tables: ", error);
+  });
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;

@@ -45,6 +45,7 @@ function createValueStructures(profileFields, careerFields) {
         ]))
       }
     ];
-  }
-
-  module.exports = createValueStructures;
+  };
+  module.exports = {
+    createValueStructures
+  };

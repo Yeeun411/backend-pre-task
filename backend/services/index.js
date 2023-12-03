@@ -1,7 +1,7 @@
-const profileCardsService = require('./profile_cards');
-const profileListService = require('./profile_list');
+// const profileCardsService = require('./profile_cards');
+// const profileListService = require('./profile_list');
 
-module.exports = {
-    ...profileCardsService,
-    ...profileListService
-};
+// module.exports = {
+//     ...profileCardsService,
+//     ...profileListService
+// };

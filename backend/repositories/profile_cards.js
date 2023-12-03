@@ -1,26 +1,53 @@
-const ProfileCard = require('../models/profile_card');
-const ProfileField = require('../models/profile_field');
-const CareerField = require('../models/career_field');
-const profile_field = require('../models/profile_field');
+const { profile_card, profile_field, career_field } = require('../models');
 
 exports.createProfileCard = async (createDto) => {
-  return await profile_card.create({
-    name: createDto.name
+  const profileCard =  await profile_card.create({
+    name: createDto
   });
+  return profileCard;
 };
 
+
 exports.createProfileCardField = async (id, fieldKey, fieldValue) => {
-  const [updateCount] = await profile_field.create({ field_key: fieldKey, field_value: fieldValue}, { where: { profile_id: id} });
-  return updateCount > 0;
+  try {
+    if (!id || !fieldKey) {
+      console.error("Invalid arguments: id and fieldKey are required.");
+      return false;
+    }
+
+    const profileId = parseInt(id);
+    if (isNaN(profileId)) {
+      console.error("Invalid profileId: Unable to parse id to integer.", id);
+      return false;
+    }
+
+    const created = await profile_field.create({
+      profile_id: profileId,
+      field_key: fieldKey,
+      field_value: fieldValue
+    });
+
+    if (created) {
+      console.log("Successfully created profileField", created.get());
+      return true;
+    } else {
+      console.error("Failed to create profileField.");
+      return false;
+    }
+  } catch (error) {
+    console.error("Error in createProfileCardField:", error);
+    return false;
+  }
 }
 
+
 exports.getProfileCard = async (id) => {
-  const profileCard = await ProfileCard.findByPk(id);
-  const profileFields = await ProfileField.findAll({
+  const profileCard = await profile_card.findByPk(id);
+  const profileFields = await profile_field.findAll({
     attributes: ['field_key', 'field_value'],
     where: { profile_id: id }
   });
-  const careerFields = await CareerField.findAll({ where: { profile_id: id } });
+  const careerFields = await career_field.findAll({ where: { profile_id: id } });
 
   return { profileCard, profileFields, careerFields };
 };
@@ -29,7 +56,7 @@ exports.getProfileCard = async (id) => {
 exports.updateProfileField = async (profileId, newValue) => {
   try {
       for (const key in newValue) {
-          await ProfileField.upsert({
+          await profile_field.upsert({
               profile_id: profileId,
               field_key: key,
               field_value: newValue[key]
@@ -44,7 +71,7 @@ exports.updateProfileField = async (profileId, newValue) => {
 
 exports.updateCareerField = async (profileId, itemIndex, newValue) => {
   try {
-      await CareerField.update(newValue, {
+      await career_field.update(newValue, {
           where: {
               profile_id: profileId,
               item_index: itemIndex
@@ -63,7 +90,7 @@ exports.updateCareerField = async (profileId, itemIndex, newValue) => {
 
 exports.deleteProfileCard = async (id) => {
   try {
-      const deleteCount = await ProfileCard.destroy({ where: { id } });
+      const deleteCount = await profile_card.destroy({ where: { id } });
       return deleteCount > 0;
   } catch (error) {
       return false;

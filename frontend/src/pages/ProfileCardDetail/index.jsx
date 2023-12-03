@@ -84,9 +84,9 @@ const ProfileCardDetail = (props) => {
       method: 'POST',
       url: `/api/profile_card/updateProfile/${profileCardId}`,
       data: {
-        newValue,
-        parentDatKey,
-        itemIndex,
+        newValue: newValue,
+        parentDatKey: parentDatKey,
+        itemIndex: itemIndex,
       },
     });
     if (!response) return;

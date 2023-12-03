@@ -1,9 +1,11 @@
 const { 
-    fetchProfileListService
-} = require('../services');
+    fetchProfileListService,
+    fetchAvailableColumnsService
+} = require('../services/profile_list.js');
+
 const { 
     FetchListDto
-} = require('../dtos');
+} = require('../dtos/profile_list.js');
 
 exports.fetchProfileListController = async (req, res) => {
     try {
@@ -16,6 +18,7 @@ exports.fetchProfileListController = async (req, res) => {
 
         res.json(result);
     } catch (error) {
+        console.error(error);
         res.status(500).send(error.message);
     }
 };
@@ -30,6 +33,7 @@ exports.fetchAvailableColumnsController = async (req, res) => {
 
         res.json(result);
     } catch (error) {
+        console.error(error);
         res.status(500).send(error.message);
     }
 }
