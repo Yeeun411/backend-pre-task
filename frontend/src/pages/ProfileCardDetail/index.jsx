@@ -65,7 +65,6 @@ const ProfileCardDetail = (props) => {
     if (!profileDetail || !profileDetail.valueStructures) return {};
 
     const { value, valueStructures: allDataStructures } = profileDetail;
-    console.log(profileDetail.value);
     const listStructures = allDataStructures.filter(({ type }) => type === 'list');
     const listWithChildrenStructures = listStructures.map((listStructure) => {
     const { dataKey: targetDataKey } = listStructure;
