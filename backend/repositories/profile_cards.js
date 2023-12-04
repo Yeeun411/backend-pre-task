@@ -8,10 +8,10 @@ exports.createProfileCard = async (createDto) => {
 };
 
 
-exports.createProfileCardField = async (id, fieldKey, fieldValue) => {
+exports.createProfileCardField = async (id, fieldKey, fieldLabel, fieldValue) => {
   try {
-    if (!id || !fieldKey) {
-      console.error("Invalid arguments: id and fieldKey are required.");
+    if (!id || !fieldKey || !field_label) {
+      console.error("Invalid arguments: id and fieldKey and fieldLabel are required.");
       return false;
     }
 
@@ -24,7 +24,8 @@ exports.createProfileCardField = async (id, fieldKey, fieldValue) => {
     const created = await profile_field.create({
       profile_id: profileId,
       field_key: fieldKey,
-      field_value: fieldValue
+      field_value: fieldValue,
+      field_label: fieldLabel
     });
 
     if (created) {

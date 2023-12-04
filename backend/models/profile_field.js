@@ -21,6 +21,11 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING(100),
       allowNull: true,
     },
+    field_label: {
+      type: DataTypes.STRING(100),
+      allowNull: false,
+    }
+    ,
     field_type: {
       type: DataTypes.TEXT,
       defaultValue: 'text',

@@ -10,16 +10,17 @@ const {
 const { createValueStructures } = require("../utils/value_structure");
 
 exports.createProfileCardService = async (createDto) => {
-    const createProfileResult = await createProfileCard(createDto)
+    console.log(createDto);
+    const createProfileResult = await createProfileCard(createDto);
     const profileId = createProfileResult.id;
     console.log("프로필 아이디는");
     console.log(profileId);
 
-    await createProfileCardField(profileId, "닉네임", null);
-    await createProfileCardField(profileId, "전화번호", null);
-    await createProfileCardField(profileId, "이메일", null);
-    await createProfileCardField(profileId, "생년월일", null);
-    await createProfileCardField(profileId, "성별", null);
+    await createProfileCardField(profileId, "nickname", "닉네임", null);
+    await createProfileCardField(profileId, "phonenumber" ,"전화번호", null);
+    await createProfileCardField(profileId, "email","이메일", null);
+    await createProfileCardField(profileId, "birthday","생년월일", null);
+    await createProfileCardField(profileId, "gender","성별", null);
     
     return createProfileResult;
 };

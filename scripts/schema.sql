@@ -31,8 +31,9 @@ CREATE TABLE profile_field (
     profile_id int,
     item_index int,
     field_key varchar(100),
-    field_value text,
-    field_type text default 'text',
+    field_value varchar(100),
+    field_type varchar(100) default 'text',
+    field_label varchar(100),
     updated_at timestamp default current_timestamp not null on update current_timestamp,
     primary key (profile_id, field_key),
     foreign key (profile_id) references profile_card(id)

@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     company_name: {
       type: DataTypes.STRING(100),
-      allowNull: false,
+      allowNull: true,
     },
     role: {
       type: DataTypes.STRING(100),

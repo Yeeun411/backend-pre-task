@@ -9,7 +9,9 @@ const {
 
 exports.fetchProfileListController = async (req, res) => {
     try {
+        console.log(req.query);
         const fetchListDto = new FetchListDto(req.query);
+    
         const result = await fetchProfileListService(fetchListDto);
 
         if (!result) {
@@ -22,6 +24,7 @@ exports.fetchProfileListController = async (req, res) => {
         res.status(500).send(error.message);
     }
 };
+
 
 exports.fetchAvailableColumnsController = async (req, res) => {
     try {

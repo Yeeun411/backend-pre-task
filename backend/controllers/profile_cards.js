@@ -15,9 +15,6 @@ exports.createProfileCardController = async (req, res) => {
 
     console.log(req.body);
     const name = req.body.name;
-    // console.log(typeof(name));
-    // const createDto = new ProfileCardCreateDto(name);
-    // const profileCard = await createProfileCardService(createDto);
     const profileCard = await createProfileCardService(name);
 
     res.status(201).json(profileCard);
