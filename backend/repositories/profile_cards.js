@@ -78,7 +78,7 @@ exports.getProfileCard = async (id) => {
     attributes: ['id', 'name']
   });
   const profileFields = await profile_field.findAll({
-    attributes: ['field_key', 'field_value'],
+    attributes: ['field_key', 'field_value', 'field_label', 'field_type'],
     where: { profile_id: id }
   });
   console.log("profileFields: ", profileFields);

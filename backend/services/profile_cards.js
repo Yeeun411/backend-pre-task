@@ -14,19 +14,25 @@ exports.createProfileCardService = async (createDto) => {
     const createProfileResult = await createProfileCard(createDto);
     const profileId = createProfileResult.id;
 
-    await createProfileField(profileId, "nickname", " 닉네임 ", null);
-    await createProfileField(profileId, "phonenumber" ," 전화번호 ", null);
-    await createProfileField(profileId, "email", " 이메일 ", null);
-    await createProfileField(profileId, "birthday", " 생년월일 ", null);
-    await createProfileField(profileId, "gender", " 성별 ", null);
+    const nickname = "닉네임";
+    const phonenumber = "전화번호";
+    const email = "이메일";
+    const birthday = "생년월일";
+    const gender = "성별";
+
+    await createProfileField(profileId, "nickname", nickname, null);
+    await createProfileField(profileId, "phonenumber" ,phonenumber, null);
+    await createProfileField(profileId, "email", email, null);
+    await createProfileField(profileId, "birthday", birthday, null);
+    await createProfileField(profileId, "gender", gender, null);
     await createCareerField(profileId, null, null, null, null, null);
 
     
     return createProfileResult;
 };
 
-exports.createProfileCardFieldService = async (id, field_key, field_value) => {
-    const success = await createProfileField(id, field_key, field_value);
+exports.createProfileCardFieldService = async (id, field_key,field_label,field_value) => {
+    const success = await createProfileField(id, field_key,field_label, field_value);
     return success ? "성공입니다." : "실패입니다.";
 };
 

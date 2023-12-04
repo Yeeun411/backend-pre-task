@@ -40,7 +40,11 @@ exports.getProfileList = async (page, pageSize, profileCardAttributes, profileFi
 exports.getAvailableColumns = async () => {
     try {
       const profileFields = await profile_field.findAll({
-        attributes: ['field_key', 'field_label']
+        attributes: [
+          [Sequelize.fn('DISTINCT', Sequelize.col('field_key')), 'field_key'],
+          'field_label'
+        ],
+        group: ['field_key', 'field_label']
       });
   
       return profileFields.map(pf => ({
