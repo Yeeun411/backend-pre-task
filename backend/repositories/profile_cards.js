@@ -81,7 +81,6 @@ exports.getProfileCard = async (id) => {
     attributes: ['field_key', 'field_value', 'field_label', 'field_type'],
     where: { profile_id: id }
   });
-  console.log("profileFields: ", profileFields);
   const careerFields = await career_field.findAll({
     attributes: ['company_name', 'role', 'start_date', 'end_date'],
     where: { profile_id: id }
@@ -95,9 +94,15 @@ exports.updateProfileField = async (profileId, newValue) => {
   try {
       for (const key in newValue) {
           await profile_field.upsert({
+            profile_id: profileId,
+            field_key: key,
+            field_label: key,
+            field_value: newValue[key],
+
+            where:{
               profile_id: profileId,
-              field_key: key,
-              field_value: newValue[key]
+              field_key: key
+            }
           });
       }
       return true;
@@ -115,6 +120,16 @@ exports.updateCareerField = async (profileId, itemIndex, newValue) => {
               item_index: itemIndex
           }
       });
+      return true;
+  } catch (error) {
+      console.error(error);
+      return false;
+  }
+};
+
+exports.updateProfileCardName = async (profileId, newName) => {
+  try {
+      await profile_card.update({ name: newName }, { where: { id: profileId } });
       return true;
   } catch (error) {
       console.error(error);

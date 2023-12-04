@@ -54,7 +54,6 @@ const ProfileCardDetail = (props) => {
 
     const { value, valueStructures: allDataStructures } = profileDetail;
     const singleDataStructures = allDataStructures.filter(({ type, parentDataKey }) => type !== 'list' && !parentDataKey);
-    console.log(singleDataStructures);
     return {
       value,
       structures: singleDataStructures,
@@ -68,7 +67,6 @@ const ProfileCardDetail = (props) => {
     const listStructures = allDataStructures.filter(({ type }) => type === 'list');
     const listWithChildrenStructures = listStructures.map((listStructure) => {
     const { dataKey: targetDataKey } = listStructure;
-    console.log(listStructure);
 
       return {
         ...listStructure,
@@ -81,14 +79,14 @@ const ProfileCardDetail = (props) => {
     };
   }, [profileDetail]);
 
-  const onSaveValue = useCallback(async (newValue, parentDatKey, itemIndex) => {
+  const onSaveValue = useCallback(async (newValue, parentDataKey, itemIndex) => {
     // TODO: Change your api
     const response = await request({
       method: 'POST',
       url: `/api/profile_card/updateProfile/${profileCardId}`,
       data: {
         newValue: newValue,
-        parentDatKey: parentDatKey,
+        parentDataKey: parentDataKey,
         itemIndex: itemIndex,
       },
     });

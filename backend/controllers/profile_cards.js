@@ -1,6 +1,4 @@
 const { 
-    ProfileCardCreateDto,  
-    ProfileCardResponseDto,
     ProfileCardUpdateDto,
 } = require('../dtos/profile_cards');
 const { 
@@ -63,7 +61,7 @@ exports.updateProfileCardController = async (req, res) => {
 
 exports.deleteProfileCardController = async (req, res) => {
     try {
-      const profileCardId = parseInt(req.params.profileId);
+      const profileCardId = parseInt(req.params.id);
   
       const deletedProfileCard = await deleteProfileCardService(profileCardId);
   

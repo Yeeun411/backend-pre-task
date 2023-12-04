@@ -4,7 +4,8 @@ const {
     createCareerField,
     createProfileField,
     updateProfileField, 
-    updateCareerField, 
+    updateCareerField,
+    updateProfileCardName,
     deleteProfileCard 
 } = require("../repositories/profile_cards");
 
@@ -64,12 +65,12 @@ exports.getProfileCardService = async (id) => {
 exports.updateProfileCardService = async (id, updateDto) => {
     const { parentDataKey, itemIndex, newValue } = updateDto;
 
-    if (parentDataKey === 'profile') {
-        return await updateProfileField(id, newValue);
+    if (newValue.name) {
+        return await updateProfileCardName(id, newValue.name);
     } else if (parentDataKey === 'career') {
         return await updateCareerField(id, itemIndex, newValue);
     } else {
-        return false;
+        return await updateProfileField(id, newValue);
     }
 };
 
