@@ -47,26 +47,26 @@ exports.getProfileCardService = async (id) => {
     }, {});
 
     const value = {
-        이름: profileCard.name,
+        name: profileCard.name,
         ...profileFieldsObject,
-        경력사항: careerFields.map(({ company_name, role, start_date, end_date }) => ({
-            회사명: company_name,
-            업무: role,
-            입사일: start_date,
-            퇴사일: end_date
+        career: careerFields.map(({ company_name, role, start_date, end_date }) => ({
+            company_name: company_name,
+            role: role,
+            start_date: start_date,
+            end_date: end_date
         }))
     };
 
     const valueStructures = createValueStructures(profileCard.name, profileFields, careerFields);
-    return { value: value, valueStructures: valueStructures };
+    return { profileCardDetail: { value: value, valueStructures: valueStructures} };
 };
 
 exports.updateProfileCardService = async (id, updateDto) => {
     const { parentDataKey, itemIndex, newValue } = updateDto;
 
-    if (parentDataKey === 'profile_field') {
+    if (parentDataKey === 'profile') {
         return await updateProfileField(id, newValue);
-    } else if (parentDataKey === 'career_field') {
+    } else if (parentDataKey === 'career') {
         return await updateCareerField(id, itemIndex, newValue);
     } else {
         return false;

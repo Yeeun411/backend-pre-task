@@ -33,8 +33,8 @@ exports.getProfileCardController = async (req, res) => {
     if (!profileCardData) {
       return res.status(404).send("Profile card not found");
     }
-    console.log(profileCardData);
     res.json(profileCardData);
+
   } catch (error) {
     console.error(error);
     res.status(500).send(error.message);

@@ -1,4 +1,4 @@
-function createValueStructures(name, profileFields, careerFields) {
+function createValueStructures(name, profileFields) {
   return [
       {
           label: "이름",
@@ -14,36 +14,34 @@ function createValueStructures(name, profileFields, careerFields) {
       })),
       {
           label: "경력사항",
-          dataKey: "careerFields",
+          dataKey: "career",
           type: "list",
-          parentDataKey: null,
-          childrenStructures: careerFields.flatMap(careerField => ([
-              {
-                  label: "회사명",
-                  dataKey: careerField.company_name,
-                  type: "text",
-                  parentDataKey: "careerFields"
-              },
-              {
-                  label: "직무",
-                  dataKey: careerField.role,
-                  type: "text",
-                  parentDataKey: "careerFields"
-              },
-              {
-                  label: "입사일",
-                  dataKey: careerField.start_date,
-                  type: "date",
-                  parentDataKey: "careerFields"
-              },
-              {
-                  label: "퇴사일",
-                  dataKey: careerField.end_date,
-                  type: "date",
-                  parentDataKey: "careerFields"
-              }
-          ]))
-      }
+          parentDataKey: null
+        },
+        {
+            label: "회사명",
+            dataKey: "company_name",
+            type: "text",
+            parentDataKey: "career"
+        },
+        {
+            label: "직무",
+            dataKey: "role",
+            type: "text",
+            parentDataKey: "career"
+        },
+        {
+            label: "입사일",
+            dataKey: "start_date",
+            type: "date",
+            parentDataKey: "career"
+        },
+        {
+            label: "퇴사일",
+            dataKey: "end_date",
+            type: "date",
+            parentDataKey: "career"
+        }
   ];
 }
 
