@@ -13,7 +13,6 @@ const {
 exports.createProfileCardController = async (req, res) => {
   try {
 
-    console.log(req.body);
     const name = req.body.name;
     const profileCard = await createProfileCardService(name);
 
@@ -27,13 +26,14 @@ exports.createProfileCardController = async (req, res) => {
 
 exports.getProfileCardController = async (req, res) => {
   try {
-    const profileCardId = parseInt(req.params.profileId);
+
+    const profileCardId = parseInt(req.query.profileCardId);
     const profileCardData = await getProfileCardService(profileCardId);
 
     if (!profileCardData) {
       return res.status(404).send("Profile card not found");
     }
-
+    console.log(profileCardData);
     res.json(profileCardData);
   } catch (error) {
     console.error(error);

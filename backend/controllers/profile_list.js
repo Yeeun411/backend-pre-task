@@ -9,7 +9,6 @@ const {
 
 exports.fetchProfileListController = async (req, res) => {
     try {
-        console.log(req.query);
         const fetchListDto = new FetchListDto(req.query);
     
         const result = await fetchProfileListService(fetchListDto);

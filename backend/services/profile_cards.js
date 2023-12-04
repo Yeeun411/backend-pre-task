@@ -1,7 +1,8 @@
 const { 
     createProfileCard, 
     getProfileCard,
-    createProfileCardField,
+    createCareerField,
+    createProfileField,
     updateProfileField, 
     updateCareerField, 
     deleteProfileCard 
@@ -10,50 +11,48 @@ const {
 const { createValueStructures } = require("../utils/value_structure");
 
 exports.createProfileCardService = async (createDto) => {
-    console.log(createDto);
     const createProfileResult = await createProfileCard(createDto);
     const profileId = createProfileResult.id;
-    console.log("프로필 아이디는");
-    console.log(profileId);
 
-    await createProfileCardField(profileId, "nickname", "닉네임", null);
-    await createProfileCardField(profileId, "phonenumber" ,"전화번호", null);
-    await createProfileCardField(profileId, "email","이메일", null);
-    await createProfileCardField(profileId, "birthday","생년월일", null);
-    await createProfileCardField(profileId, "gender","성별", null);
+    await createProfileField(profileId, "nickname", " 닉네임 ", null);
+    await createProfileField(profileId, "phonenumber" ," 전화번호 ", null);
+    await createProfileField(profileId, "email", " 이메일 ", null);
+    await createProfileField(profileId, "birthday", " 생년월일 ", null);
+    await createProfileField(profileId, "gender", " 성별 ", null);
+    await createCareerField(profileId, null, null, null, null, null);
+
     
     return createProfileResult;
 };
 
 exports.createProfileCardFieldService = async (id, field_key, field_value) => {
-    const success = await createProfileCardField(id, field_key, field_value);
+    const success = await createProfileField(id, field_key, field_value);
     return success ? "성공입니다." : "실패입니다.";
 };
+
 
 exports.getProfileCardService = async (id) => {
     const { profileCard, profileFields, careerFields } = await getProfileCard(id);
     if (!profileCard) return null;
 
-    const profileFieldsObject = profileFields.reduce((obj, profile) => {
-        obj[profile.field_key] = profile.field_value;
+    const profileFieldsObject = profileFields.reduce((obj, { field_key, field_value }) => {
+        obj[field_key] = field_value;
         return obj;
     }, {});
-
-    const careerFieldsArray = careerFields.map(career => ({
-        회사명: career.company_name,
-        업무: career.role,
-        입사일: career.start_date,
-        퇴사일: career.end_date
-    }));
 
     const value = {
         이름: profileCard.name,
         ...profileFieldsObject,
-        경력사항: careerFieldsArray
-        };
+        경력사항: careerFields.map(({ company_name, role, start_date, end_date }) => ({
+            회사명: company_name,
+            업무: role,
+            입사일: start_date,
+            퇴사일: end_date
+        }))
+    };
 
-    const valueStructures = createValueStructures(profileFields, careerFields);
-    return { value, valueStructures };
+    const valueStructures = createValueStructures(profileCard.name, profileFields, careerFields);
+    return { value: value, valueStructures: valueStructures };
 };
 
 exports.updateProfileCardService = async (id, updateDto) => {
