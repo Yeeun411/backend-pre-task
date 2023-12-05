@@ -139,16 +139,21 @@ const ProfileCardList = () => {
     closeCreateProfileCardModal();
   }, [paginationInfo, orderInfo]);
 
-  const handleSortChange = useCallback((e) => {
-    const columnState = e.columnApi.getColumnState();
-    const sortedColumn = columnState.find(({ sort }) => !!sort);
-    if (!sortedColumn) {
-      fetchProfileList();
-      return;
-    }
-    const { colId, sort } = sortedColumn;
-    fetchProfileList(undefined, [colId, sort]);
-  }, []);
+    const handleSortChange = useCallback((e) => {
+      const columnState = e.columnApi.getColumnState();
+      const sortedColumn = columnState.find(({ sort }) => !!sort);
+    
+      if (!sortedColumn) {
+        fetchProfileList(undefined, orderInfo);
+        return;
+      }
+    
+      const { colId, sort } = sortedColumn;
+      const newSortInfo = [colId, sort];
+      setOrderInfo(newSortInfo);
+      fetchProfileList(undefined, newSortInfo);
+    }, [orderInfo, fetchProfileList]);
+  
 
   return (
     <div className="profile-card-list">
