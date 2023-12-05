@@ -90,7 +90,9 @@ const ProfileCardDetail = (props) => {
         itemIndex: itemIndex,
       },
     });
-    if (!response) return;
+
+
+    if (!response.updated) return;
 
     fetchProfileCardDetail(profileCardId);
   }, [profileCardId]);

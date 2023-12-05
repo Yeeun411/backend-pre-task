@@ -54,7 +54,9 @@ exports.updateProfileCardController = async (req, res) => {
           return res.status(404).send("Unable to update profile card");
       }
 
-      res.status(200).json({ message: "Profile card updated successfully" });
+
+      res.status(200).json({ updated: true });
+
   } catch (error) {
     console.error(error);
     res.status(500).send(error.message);

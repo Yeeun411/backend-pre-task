@@ -5,7 +5,6 @@ const {
     createProfileField,
     updateProfileField, 
     updateCareerField,
-    createCareerFieldIndex,
     updateProfileCardName,
     deleteProfileCard 
 } = require("../repositories/profile_cards");
@@ -27,8 +26,6 @@ exports.createProfileCardService = async (createDto) => {
     await createProfileField(profileId, "email", email, null, "email");
     await createProfileField(profileId, "birthday", birthday, null, "date");
     await createProfileField(profileId, "gender", gender, null, "text");
-    await createCareerField(profileId, 1, null, null, null, null, null);
-
     
     return createProfileResult;
 };
@@ -69,11 +66,8 @@ exports.updateProfileCardService = async (id, updateDto) => {
     if (newValue.name) {
         return await updateProfileCardName(id, newValue.name);
     }
-    if (parentDataKey === 'career' && newValue === null) {
-        return await createCareerFieldIndex(id, itemIndex, newValue);
-    }
     if (parentDataKey === 'career') {
-        return await updateCareerField(id, newValue);
+        return await updateCareerField(id, itemIndex, newValue);
     }
 
     return await updateProfileField(id, newValue);

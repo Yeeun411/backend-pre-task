@@ -109,15 +109,15 @@ exports.updateProfileField = async (profileId, newValue) => {
 
 exports.updateCareerField = async (profileId, itemIndex, newValue) => {
   try {
-    for (const key in newValue) {
-      const updateValues = {};
-      updateValues[key] = newValue[key];
 
-      await career_field.update(
-        updateValues,
-        { where: { profile_id: profileId, item_index: itemIndex } }
-      );
-    }
+    console.log(profileId, itemIndex, newValue);
+    
+    await career_field.upsert({
+      profile_id: profileId,
+      item_index: itemIndex,
+      ...newValue
+    });
+    
     return true;
   } catch (error) {
       console.error(error);
