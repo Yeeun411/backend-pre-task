@@ -23,14 +23,6 @@ exports.getProfileList = async (page, pageSize, profileCardAttributes, profileFi
       `);
     }
 
-    const profileFieldIncludes = profileFieldAttributes.map(fieldKey => ({
-      model: profile_field,
-      as: 'profile_fields',
-      where: { field_key: fieldKey },
-      attributes: ['field_key', 'field_value'],
-      required: false
-    }));
-
     const { count, rows } = await profile_card.findAndCountAll({
       attributes: profileCardAttributes,
       include: [
@@ -39,8 +31,12 @@ exports.getProfileList = async (page, pageSize, profileCardAttributes, profileFi
           as: 'career_fields',
           attributes: careerFieldAttributes,
           required: false
-        },
-        ...profileFieldIncludes
+        },{
+          model: profile_field,
+          as: 'profile_fields',
+          attributes: ['field_key','field_value'],
+          required: false
+        }
       ],
       order: order instanceof Sequelize.Utils.Literal ? [[order, sortOrder[1]]] : order,
       limit,

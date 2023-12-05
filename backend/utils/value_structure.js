@@ -1,11 +1,5 @@
 function createValueStructures(name, profileFields) {
   return [
-      {
-          label: "이름",
-          dataKey: name,
-          type: "text",
-          parentDataKey: null
-      },
       ...profileFields.map(field => ({
           label: field.field_label,
           dataKey: field.field_key,
@@ -23,8 +17,7 @@ function createValueStructures(name, profileFields) {
             dataKey: "company_name",
             type: "text",
             parentDataKey: "career"
-        },
-        {
+        },       {
             label: "직무",
             dataKey: "role",
             type: "text",

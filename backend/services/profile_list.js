@@ -17,6 +17,7 @@ exports.fetchProfileListService = async (fetchListDto) => {
       const profileFieldAttributes = columns.filter(col => 
         !['name', ...Object.keys(careerFieldMappings)].includes(col)
       );
+      console.log(profileFieldAttributes);
 
     const { list, total } = await getProfileList(
         page,
