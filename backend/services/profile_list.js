@@ -3,6 +3,10 @@ const { getProfileList, getAvailableColumns } = require('../repositories/profile
 exports.fetchProfileListService = async (fetchListDto) => {
   const { page, pageSize, columns, sort } = fetchListDto;
 
+  if(sort[1] !== 'asc' && sort[1] !== 'desc') {
+    sort = [];
+  }
+
   const profileCardAttributes = ['id', ...columns.filter(col => col === 'name')];
   const careerFieldMappings = {
     'career_company_name_0': 'company_name',
