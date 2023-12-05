@@ -4,18 +4,14 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: 'profile_card',
+        model: 'profile_card', // Ensure this matches the table name as Sequelize sees it
         key: 'id',
       },
-    },
-    item_index: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-      autoIncrement: true,
     },
     field_key: {
       type: DataTypes.STRING(100),
       allowNull: false,
+      primaryKey: true,
     },
     field_value: {
       type: DataTypes.STRING(100),
@@ -24,10 +20,9 @@ module.exports = (sequelize, DataTypes) => {
     field_label: {
       type: DataTypes.STRING(100),
       allowNull: false,
-    }
-    ,
+    },
     field_type: {
-      type: DataTypes.TEXT,
+      type: DataTypes.STRING(100),
       defaultValue: 'text',
       allowNull: false,
     },
@@ -40,14 +35,16 @@ module.exports = (sequelize, DataTypes) => {
     tableName: 'profile_field',
     timestamps: true,
     updatedAt: 'updated_at',
-    createdAt: false
+    createdAt: false,
+    indexes: [{
+      unique: true,
+      fields: ['profile_id', 'field_key']
+    }]
   });
 
-  profile_field.associate = (profile_fields) => {
-    profile_field.belongsTo(profile_fields.profile_card, { foreignKey: 'profile_id' });
+  profile_field.associate = (models) => {
+    profile_field.belongsTo(models.profile_card, { foreignKey: 'profile_id' });
   };
 
   return profile_field;
 };
-
-  

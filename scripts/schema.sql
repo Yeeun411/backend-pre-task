@@ -17,23 +17,24 @@ CREATE TABLE profile_card (
 
 CREATE TABLE career_field (
     profile_id int,
-    item_index int auto_increment primary key,
+    item_index int,
     company_name varchar(100),
     role varchar(100),
     start_date date,
     end_date date,
     updated_at timestamp default current_timestamp not null on update current_timestamp,
+    primary key (profile_id, item_index),
     foreign key (profile_id) references profile_card(id)
 );
 
 CREATE TABLE profile_field (
     profile_id int,
-    item_index int auto_increment primary key,
     field_key varchar(100),
     field_value varchar(100),
     field_type varchar(100) default 'text',
     field_label varchar(100),
     updated_at timestamp default current_timestamp not null on update current_timestamp,
+    primary key (profile_id, field_key),
     foreign key (profile_id) references profile_card(id)
 );
 

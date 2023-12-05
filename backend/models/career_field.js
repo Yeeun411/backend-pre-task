@@ -10,8 +10,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     item_index: {
       type: DataTypes.INTEGER,
+      allowNull: false,
       primaryKey: true,
-      autoIncrement: true,
     },
     company_name: {
       type: DataTypes.STRING(100),
@@ -38,11 +38,15 @@ module.exports = (sequelize, DataTypes) => {
     tableName: 'career_field',
     timestamps: true,
     updatedAt: 'updated_at',
-    createdAt: false
+    createdAt: false,
+    indexes: [{
+      unique: true,
+      fields: ['profile_id', 'item_index']
+    }]
   });
 
-  career_field.associate = (career_fields) => {
-    career_field.belongsTo(career_fields.profile_card, { foreignKey: 'profile_id' });
+  career_field.associate = (models) => {
+    career_field.belongsTo(models.profile_card, { foreignKey: 'profile_id' });
   };
 
   return career_field;

@@ -27,7 +27,7 @@ exports.createProfileCardService = async (createDto) => {
     await createProfileField(profileId, "email", email, null, "email");
     await createProfileField(profileId, "birthday", birthday, null, "date");
     await createProfileField(profileId, "gender", gender, null, "text");
-    await createCareerField(profileId, null, null, null, null, null);
+    await createCareerField(profileId, 1, null, null, null, null, null);
 
     
     return createProfileResult;

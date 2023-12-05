@@ -7,7 +7,7 @@ exports.createProfileCard = async (createDto) => {
   return profileCard;
 };
 
-exports.createCareerField = async(id, company_name, role, start_date, end_date) => {
+exports.createCareerField = async(id, item_index ,company_name, role, start_date, end_date) => {
   try {
 
     const profileId = parseInt(id);
@@ -18,6 +18,7 @@ exports.createCareerField = async(id, company_name, role, start_date, end_date) 
 
     const created = await career_field.create({
       profile_id: profileId,
+      item_index: item_index,
       company_name: company_name,
       role: role,
       start_date: start_date,
