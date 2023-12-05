@@ -135,7 +135,11 @@ const ProfileCardList = () => {
     });
     if (!response || !response.created) return;
 
-    await fetchProfileList(paginationInfo.current);
+    console.log(response);
+    console.log(paginationInfo);
+
+    fetchProfileList(paginationInfo.current);
+    console.log("hi");
     closeCreateProfileCardModal();
   }, [paginationInfo, orderInfo]);
 

@@ -23,7 +23,7 @@ exports.getProfileList = async (page, pageSize, profileCardAttributes, profileFi
       `);
     }
 
-    const { count, rows } = await profile_card.findAndCountAll({
+    const rows = await profile_card.findAll({
       attributes: profileCardAttributes,
       include: [
         {
@@ -41,6 +41,9 @@ exports.getProfileList = async (page, pageSize, profileCardAttributes, profileFi
       order: order instanceof Sequelize.Utils.Literal ? [[order, sortOrder[1]]] : order,
       limit,
       offset
+    });
+    const count = await profile_card.count({
+      distinct: true
     });
 
     return { list: rows, total: count };
