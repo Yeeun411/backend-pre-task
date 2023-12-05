@@ -39,7 +39,8 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     tableName: 'profile_field',
     timestamps: true,
-    updatedAt: 'updated_at'
+    updatedAt: 'updated_at',
+    createdAt: false
   });
 
   profile_field.associate = (profile_fields) => {
