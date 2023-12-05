@@ -39,7 +39,7 @@ exports.createCareerField = async(id, company_name, role, start_date, end_date) 
 };
 
 
-exports.createProfileField = async (id, fieldKey, fieldLabel, fieldValue) => {
+exports.createProfileField = async (id, fieldKey, fieldLabel, fieldValue, field_type) => {
   try {
     if (!id || !fieldKey || !fieldLabel) {
       console.error("Invalid arguments: id and fieldKey and fieldLabel are required.");
@@ -56,7 +56,8 @@ exports.createProfileField = async (id, fieldKey, fieldLabel, fieldValue) => {
       profile_id: profileId,
       field_key: fieldKey,
       field_value: fieldValue,
-      field_label: fieldLabel
+      field_label: fieldLabel,
+      field_type: field_type
     });
 
     if (created) {
@@ -93,18 +94,11 @@ exports.getProfileCard = async (id) => {
 exports.updateProfileField = async (profileId, newValue) => {
   try {
       for (const key in newValue) {
-          await profile_field.upsert({
-            profile_id: profileId,
-            field_key: key,
-            field_label: key,
-            field_value: newValue[key],
-
-            where:{
-              profile_id: profileId,
-              field_key: key
-            }
-          });
-      }
+        await profile_field.update(
+          { field_value: newValue[key] },
+          { where: { profile_id: profileId, field_key: key } }
+      );
+    }
       return true;
   } catch (error) {
       console.error(error);
@@ -114,18 +108,44 @@ exports.updateProfileField = async (profileId, newValue) => {
 
 exports.updateCareerField = async (profileId, itemIndex, newValue) => {
   try {
-      await career_field.update(newValue, {
-          where: {
-              profile_id: profileId,
-              item_index: itemIndex
-          }
-      });
-      return true;
+    for (const key in newValue) {
+      console.log(key);
+      const updateValues = {};
+      updateValues[key] = newValue[key];
+
+      await career_field.update(
+        updateValues,
+        { where: { profile_id: profileId, item_index: itemIndex } }
+      );
+    }
+    return true;
   } catch (error) {
       console.error(error);
       return false;
   }
 };
+exports.createCareerFieldIndex = async (profileId, company_name, role, start_date, end_date) => {
+  try {
+    const created = await career_field.create({
+      profile_id: profileId,
+      company_name: company_name,
+      role: role,
+      start_date: start_date,
+      end_date: end_date
+    });
+
+    if (created) {
+      console.log("Successfully created careerField", created.get());
+      return true;
+    } else {
+      console.error("Failed to create careerField.");
+      return false;
+    }
+  } catch (error) {
+    console.error("Error in createProfileCardField:", error);
+    return false;
+  }
+}
 
 exports.updateProfileCardName = async (profileId, newName) => {
   try {

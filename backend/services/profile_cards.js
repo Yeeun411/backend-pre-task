@@ -5,6 +5,7 @@ const {
     createProfileField,
     updateProfileField, 
     updateCareerField,
+    createCareerFieldIndex,
     updateProfileCardName,
     deleteProfileCard 
 } = require("../repositories/profile_cards");
@@ -21,11 +22,11 @@ exports.createProfileCardService = async (createDto) => {
     const birthday = "생년월일";
     const gender = "성별";
 
-    await createProfileField(profileId, "nickname", nickname, null);
-    await createProfileField(profileId, "phonenumber" ,phonenumber, null);
-    await createProfileField(profileId, "email", email, null);
-    await createProfileField(profileId, "birthday", birthday, null);
-    await createProfileField(profileId, "gender", gender, null);
+    await createProfileField(profileId, "nickname", nickname, null, "text");
+    await createProfileField(profileId, "phonenumber" ,phonenumber, null, "phone");
+    await createProfileField(profileId, "email", email, null, "email");
+    await createProfileField(profileId, "birthday", birthday, null, "date");
+    await createProfileField(profileId, "gender", gender, null, "text");
     await createCareerField(profileId, null, null, null, null, null);
 
     
@@ -64,14 +65,20 @@ exports.getProfileCardService = async (id) => {
 
 exports.updateProfileCardService = async (id, updateDto) => {
     const { parentDataKey, itemIndex, newValue } = updateDto;
+    console.log(newValue);
 
     if (newValue.name) {
         return await updateProfileCardName(id, newValue.name);
-    } else if (parentDataKey === 'career') {
-        return await updateCareerField(id, itemIndex, newValue);
-    } else {
-        return await updateProfileField(id, newValue);
     }
+    if (parentDataKey === 'career' && newValue === null) {
+        return await createCareerFieldIndex(id, itemIndex, newValue);
+    }
+    if (parentDataKey === 'career') {
+        return await updateCareerField(id, newValue);
+    }
+
+    return await updateProfileField(id, newValue);
+
 };
 
 exports.deleteProfileCardService = async (id) => {

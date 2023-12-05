@@ -51,10 +51,26 @@ const ProfileCardList = () => {
   const { request } = useAxios();
 
   const listFetchDependencies = [paginationInfo, orderInfo, columnDefs];
+
+  //save SelectedColumns at columnDefs
+  const handleColumnVisibilityChange = useCallback((params) => {
+    setColumnDefs((currentDefs) => {
+      return currentDefs.map((colDef) => {
+        if (colDef.field === params.column.colId) {
+          return { ...colDef, hide: !params.visible };
+        }
+        return colDef;
+      });
+    });
+  }, []);
+
+
+
   const fetchProfileList = useCallback(async (
     targetPage, sort = ['name', 'asc'],
   ) => {
     // TODO: Change your api
+    console.log("0",sort);
     const response = await request({
       method: 'GET',
       url: `/api/profile_card_list/`,
@@ -101,6 +117,11 @@ const ProfileCardList = () => {
       })),
     ]);
   }, []);
+  console.log("2",columnDefs);
+
+  useEffect(() => {
+    fetchProfileList();
+  }, [columnDefs]);
 
   useEffect(() => {
     fetchProfileList();
@@ -115,6 +136,7 @@ const ProfileCardList = () => {
       data: { name: createTargetName } 
     });
     if (!response || !response.created) return;
+    console.log(response);
 
     await fetchProfileList(paginationInfo.current);
     closeCreateProfileCardModal();
@@ -128,6 +150,7 @@ const ProfileCardList = () => {
       return;
     }
     const { colId, sort } = sortedColumn;
+    console.log("1",colId, sort);
     fetchProfileList(undefined, [colId, sort]);
   }, []);
 
@@ -148,6 +171,7 @@ const ProfileCardList = () => {
           columnDefs={columnDefs}
           defaultColDef={DEFAULT_COLUMN_DEFINITIONS}
           onSortChanged={handleSortChange}
+          onColumnVisible={handleColumnVisibilityChange}
 
           suppressContextMenu
           sideBar={SIDE_BAR_SETTING}

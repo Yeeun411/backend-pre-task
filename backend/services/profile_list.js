@@ -4,8 +4,19 @@ exports.fetchProfileListService = async (fetchListDto) => {
     const { page, pageSize, columns, sort } = fetchListDto;
 
     const profileCardAttributes = ['id', ...columns.filter(col => col === 'name')];
-    const careerFieldAttributes = columns.filter(col => ['company_name', 'role', 'start_date', 'end_date'].includes(col));
-    const profileFieldAttributes = columns.filter(col => !['name', 'company_name', 'role', 'start_date', 'end_date'].includes(col));
+    const careerFieldMappings = {
+      'career_company_name_0': 'company_name',
+      'career_role_0': 'role',
+      'career_start_date_0': 'start_date',
+      'career_end_date_0': 'end_date'
+    };
+    const careerFieldAttributes = columns
+      .filter(col => Object.keys(careerFieldMappings).includes(col))
+      .map(col => careerFieldMappings[col]);
+
+      const profileFieldAttributes = columns.filter(col => 
+        !['name', ...Object.keys(careerFieldMappings)].includes(col)
+      );
 
     const { list, total } = await getProfileList(
         page,
@@ -49,10 +60,10 @@ exports.fetchAvailableColumnsService = async () => {
       const profileFieldStructures = await getAvailableColumns();
   
       const staticStructures = [
-        { label: '회사명', dataKey: '회사이름', parentDataKey: '경력사항' },
-        { label: '직무', dataKey: '직무', parentDataKey: '경력사항' },
-        { label: '입사일', dataKey: '입사일', parentDataKey: '경력사항' },
-        { label: '퇴사일', dataKey: '퇴사일', parentDataKey: '경력사항' }
+        { label: '회사명', dataKey: "company_name", parentDataKey: "career"},
+        { label: '직무', dataKey: "role", parentDataKey: "career" },
+        { label: '입사일', dataKey: "start_date", parentDataKey: "career" },
+        { label: '퇴사일', dataKey: "end_date", parentDataKey: "career" }
       ];
   
       return {columns : [...staticStructures, ...profileFieldStructures]};

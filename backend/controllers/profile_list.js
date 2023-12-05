@@ -10,12 +10,14 @@ const {
 exports.fetchProfileListController = async (req, res) => {
     try {
         const fetchListDto = new FetchListDto(req.query);
+        console.log("0",fetchListDto);
     
         const result = await fetchProfileListService(fetchListDto);
 
         if (!result) {
             return res.status(404).send("Profile cards not found");
         }
+        console.log("1",result);
 
         res.json(result);
     } catch (error) {
