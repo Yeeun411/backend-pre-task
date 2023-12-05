@@ -37,7 +37,9 @@ exports.fetchProfileListService = async (fetchListDto) => {
           formattedItem[attr] = item[attr];
       });
       careerFieldAttributes.forEach(attr => {
-          formattedItem[attr] = item.career_fields.map(cf => cf[attr]);
+
+        const originalKey = Object.keys(careerFieldMappings).find(key => careerFieldMappings[key] === attr);
+        formattedItem[originalKey] = item.career_fields.length > 0 ? item.career_fields[0][attr] : null;
       });
       profileFieldAttributes.forEach(attr => {
           const field = item.profile_fields.find(pf => pf.field_key === attr);

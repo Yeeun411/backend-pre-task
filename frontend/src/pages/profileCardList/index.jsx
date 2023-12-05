@@ -82,6 +82,8 @@ const ProfileCardList = () => {
     });
     if (!response || !response.list) return;
 
+    console.log(response.list);
+
     setRowData(response.list);
     setPaginationInfo(prev => ({
       ...prev,
