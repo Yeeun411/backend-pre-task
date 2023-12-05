@@ -14,7 +14,9 @@ exports.createProfileCardController = async (req, res) => {
     const name = req.body.name;
     const profileCard = await createProfileCardService(name);
 
-    res.status(201).json(profileCard);
+    res.status(201).json({
+      created: true
+    });
 
   } catch (error) {
     console.error(error);
