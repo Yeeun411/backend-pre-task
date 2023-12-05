@@ -61,10 +61,10 @@ exports.fetchAvailableColumnsService = async () => {
     const profileFieldStructures = await getAvailableColumns();
 
     const staticStructures = [
-      { label: '회사명', dataKey: "company_name", parentDataKey: "career"},
-      { label: '직무', dataKey: "role", parentDataKey: "career" },
-      { label: '입사일', dataKey: "start_date", parentDataKey: "career" },
-      { label: '퇴사일', dataKey: "end_date", parentDataKey: "career" }
+      { label: '경력사항-회사명', dataKey: "company_name", parentDataKey: "career"},
+      { label: '경력사항-직무', dataKey: "role", parentDataKey: "career" },
+      { label: '경력사항-입사일', dataKey: "start_date", parentDataKey: "career" },
+      { label: '경력사항-퇴사일', dataKey: "end_date", parentDataKey: "career" }
     ];
 
     return {columns : [...staticStructures, ...profileFieldStructures]};

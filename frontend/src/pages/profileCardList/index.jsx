@@ -135,12 +135,9 @@ const ProfileCardList = () => {
     });
     if (!response || !response.created) return;
 
-    console.log(response);
-    console.log(paginationInfo);
-
     fetchProfileList(paginationInfo.current);
-    console.log("hi");
     closeCreateProfileCardModal();
+    fetchProfileList(paginationInfo.current);
   }, [paginationInfo, orderInfo]);
 
     const handleSortChange = useCallback((e) => {
