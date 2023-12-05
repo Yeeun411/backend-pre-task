@@ -65,7 +65,6 @@ exports.getProfileCardService = async (id) => {
 
 exports.updateProfileCardService = async (id, updateDto) => {
     const { parentDataKey, itemIndex, newValue } = updateDto;
-    console.log(newValue);
 
     if (newValue.name) {
         return await updateProfileCardName(id, newValue.name);

@@ -27,7 +27,7 @@ exports.getProfileList = async (page, pageSize, profileCardAttributes, profileFi
       model: profile_field,
       as: 'profile_fields',
       where: { field_key: fieldKey },
-      attributes: ['field_value'],
+      attributes: ['field_key', 'field_value'],
       required: false
     }));
 

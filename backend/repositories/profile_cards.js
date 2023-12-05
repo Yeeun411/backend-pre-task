@@ -109,7 +109,6 @@ exports.updateProfileField = async (profileId, newValue) => {
 exports.updateCareerField = async (profileId, itemIndex, newValue) => {
   try {
     for (const key in newValue) {
-      console.log(key);
       const updateValues = {};
       updateValues[key] = newValue[key];
 
